@@ -96,8 +96,8 @@ end
 
 sample = [6,5,4,3,2,1]
 
-if ARGV.any?
-  sample = get_from_file(ARGV[0])
+if $*.any?
+  sample = get_from_file($*[0])
 end
 
 #p sample
