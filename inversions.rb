@@ -20,6 +20,39 @@ def get_from_file file_name
   arr
 end
 
+def sub_sort arr
+  if arr.size > 1
+    sub_merge sub_sort(arr[0..arr.size/2-1]), sub_sort(arr[arr.size/2..-1])
+  else
+    arr
+  end
+end
+
+def sub_merge a, b
+  res = []
+  i, j = 0, 0
+  (0...a.size+b.size).each do |k|
+    if i >= a.size
+      res << b[j]
+      j+=1
+      next
+    end
+    if j >= b.size
+      res << a[i]
+      i+=1
+      next
+    end
+    if a[i] < b[j]
+      res<<a[i]
+      i+=1
+    else  # b < a
+      res<<b[j]
+      j+=1
+    end
+  end
+  res
+end
+
 sample = [6,5,4,3,2,1]
 
 if ARGV.any?
@@ -27,5 +60,5 @@ if ARGV.any?
 end
 
 p sample
-puts bf_inversions sample
+p sub_sort sample
 
