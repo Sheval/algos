@@ -87,6 +87,8 @@ def merge_and_count a, b
   return res, count
 end
 
+# Inversions
+# Recursive method: 2407905288
 def inversions arr
   sorted, count = sort_and_count arr
   count
