@@ -12,6 +12,14 @@ def product_square_matrices a, b
   c
 end
 
+def get_matrix_from_file file_name
+  arr = []
+  File.open(file_name, 'r').each_line do |line|
+    arr << line.split.map(&:to_i)
+  end
+  arr
+end
+
 a = [[1,2,3],
      [4,5,6],
      [7,8,9]]
@@ -23,3 +31,6 @@ b = [[1, 2, 3, 4, 5 ],
      [16,17,18,19,20],
      [21,22,23,24,25]]
 p product_square_matrices b, b
+
+z = get_matrix_from_file "sample_matrix_201410200002.txt"
+p product_square_matrices z, z
