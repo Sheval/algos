@@ -11,7 +11,11 @@ def get_pivot_index arr, type
   when :last
     -1
   when :median
-    { 0 => arr[0], (arr.size-1)/2 => arr[(arr.size-1)/2], -1 => arr[-1] }.sort_by(&:last)[1][0]
+    if arr.size>2
+      { 0 => arr[0], (arr.size-1)/2 => arr[(arr.size-1)/2], -1 => arr[-1] }.sort_by(&:last)[1][0]
+    else
+      arr[0] < arr [-1] ? 0 : -1
+    end
   else
     raise 'Unknown index type. Use only [:first, :median, :last]'
   end
@@ -32,10 +36,9 @@ def partition arr, type
 end
 
 def qsort arr, type
-  @count+=arr.size-1
   return arr if arr.size <= 1
+  @count+=arr.size-1
   arr, p = partition arr, type
-  puts "Pivot: #{arr[p]}: #{arr[0...p].inspect} and #{arr[p+1..-1].inspect}"
   arr = qsort(arr[0...p], type) + [arr[p]] + qsort(arr[p+1..-1], type)
 end
 
@@ -58,9 +61,7 @@ end
 [:first, :last, :median].each do |pivot_type|
   puts "Array size = #{sample.size}, Pivot type: #{pivot_type}"
   @count = 0
-  p sample
-  res = qsort sample, pivot_type
-  p res
+  res = qsort sample.clone, pivot_type
   puts "Comparsions count: #{@count}"
 
 end
