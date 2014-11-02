@@ -1,5 +1,3 @@
-require "pry"
-
 # Unoriented graph
 class Graph
   def initialize(vertex_list = [])
@@ -19,16 +17,10 @@ class Graph
   end
 
   def contract_edge v1, v2
-#    p '-===================================-'
-#    puts "v1 = #{v1}, v2 = #{v2}"
     @vertices[v1] += @vertices[v2]
-#    p @vertices
     @vertices[v1] -= [v1, v2]
-#    p @vertices
     @vertices[v2] = nil
-#    p @vertices
     @vertices.each {|v| v.each_index { |i| v[i] = v1 if v[i] == v2 } if v }
-#    p @vertices
   end
 
   def get_vertices
@@ -36,7 +28,6 @@ class Graph
   end
 
   def do_random_contraction
-#   p @vertices
     actual_vertices = get_vertices
     while actual_vertices.size>2 do
       v1 = actual_vertices[rand(actual_vertices.size)]
