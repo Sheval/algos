@@ -16,8 +16,17 @@ def get_pivot_index arr, type
     else
       arr[0] < arr [-1] ? 0 : -1
     end
+  when :random
+    rand arr.size
+  when :rmedian
+    if arr.size>2
+      p = (0...arr.size).to_a.shuffle[0..2] #!!! awful
+      { p[0] => arr[p[0]], p[1] => arr[p[1]], p[2] => arr[p[2]] }.sort_by(&:last)[1][0]
+    else
+      arr[0] < arr [-1] ? 0 : -1
+    end
   else
-    raise 'Unknown index type. Use only [:first, :median, :last]'
+    raise 'Unknown index type. Use only [:first, :median, :last, :random, :rmedian]'
   end
 end
 
@@ -51,14 +60,14 @@ def get_from_file file_name
   arr
 end
 
-sample = [3,8,2,5,1,4,7,6]
+sample = (1..1000).to_a.shuffle
 
 if $*.any?
   sample = get_from_file($*[0])
 end
 
 
-[:first, :last, :median].each do |pivot_type|
+[:first, :last, :median, :random, :rmedian].each do |pivot_type|
   puts "Array size = #{sample.size}, Pivot type: #{pivot_type}"
   @count = 0
   res = qsort sample.clone, pivot_type
