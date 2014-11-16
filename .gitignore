@@ -1,0 +1,5 @@
+# Ignore all logfiles and tempfiles.
+/tmp
+
+# Ignore zip archives
+*.zip
