@@ -23,6 +23,8 @@ class Dijkstra
 
   def initialize
     @graph = {}
+    @explored = []
+    @frontier = []
   end
 
   def load_vertex arr
@@ -32,10 +34,24 @@ class Dijkstra
     end
   end
 
+  def search_path start, finish
+    add_vertex start
+    @frontier.each do |pair|
+
+    end
+  end
+
+  def main_loop
+    @graph.each_key do |vertex|
+      search_path 1, vertex unless @explored[vertex]
+    end
+  end
+
   def main
     wrap_time("Load graph"){ read_from_file($*[0]) { |arr| load_vertex arr } } if $*.any?
-
     puts "Graph - #{@graph.size}"
+
+    main_loop
 
     #p @graph
 

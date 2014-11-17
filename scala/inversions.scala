@@ -1,5 +1,4 @@
 import scala.io.Source
-import scala.collection.mutable.ArrayBuffer
 
 object Inversions {
   def bfInversions(arr: Array[Int]):Long = {
