@@ -34,16 +34,19 @@ class Dijkstra
     end
   end
 
-  def search_path start, finish
-    add_vertex start
-    @frontier.each do |pair|
-
-    end
+  def add_vertex vertex, length
+    @explored[vertex] = length
+    @graph[vertex].each { |pair| @frontier<<[vertex, pair[:head]] }
+    @frontier.reject { |i, j| @explored[i] && @explored[j] }
   end
 
   def main_loop
-    @graph.each_key do |vertex|
-      search_path 1, vertex unless @explored[vertex]
+    binding.pry
+    add_vertex 1
+    while @frontier.any? do
+      @frontier.each do |pair|
+
+      end
     end
   end
 
