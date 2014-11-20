@@ -36,17 +36,17 @@ class Dijkstra
 
   def add_vertex vertex, length
     @explored[vertex] = length
-    @graph[vertex].each { |pair| @frontier<<[vertex, pair[:head]] }
+    @graph[vertex].each { |pair| @frontier<<[vertex, pair[:head], @explored[vertex] + pair[:length]] }
+      binding.pry
     @frontier.reject { |i, j| @explored[i] && @explored[j] }
+      binding.pry
   end
 
   def main_loop
-    binding.pry
-    add_vertex 1
+    add_vertex 1, 0
     while @frontier.any? do
-      @frontier.each do |pair|
-
-      end
+      min_edge = @frontier.sort{ |a,b| a[2] <=> b[2] }.first
+      add_vertex min_edge[1], min_edge[2]
     end
   end
 
