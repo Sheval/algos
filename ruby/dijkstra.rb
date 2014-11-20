@@ -37,9 +37,7 @@ class Dijkstra
   def add_vertex vertex, length
     @explored[vertex] = length
     @graph[vertex].each { |pair| @frontier<<[vertex, pair[:head], @explored[vertex] + pair[:length]] }
-      binding.pry
-    @frontier.reject { |i, j| @explored[i] && @explored[j] }
-      binding.pry
+    @frontier.reject! { |i, j| @explored[i] && @explored[j] }
   end
 
   def main_loop
@@ -52,13 +50,15 @@ class Dijkstra
 
   def main
     wrap_time("Load graph"){ read_from_file($*[0]) { |arr| load_vertex arr } } if $*.any?
-    puts "Graph - #{@graph.size}"
+    puts "Graph size - #{@graph.size} vertices"
 
     main_loop
 
-    #p @graph
-
-    #binding.pry
+    if @graph.size == 200
+      puts [7,37,59,82,99,115,133,165,188,197].map{|index| @explored[index]}.join(',')
+    else
+      p @explored
+    end
   end
 
 end
