@@ -35,7 +35,7 @@ class TwoSum
           right -= 1
         end
         i = right
-        while (-10000..10000).include?(number + @numbers[i])
+        while @numbers.size>-i and (-10000..10000).include?(number + @numbers[i])
           @sum[number + @numbers[i]] = true if number != @numbers[i]
           i -= 1
         end
