@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 # 2-sum algo sandbox
 
-require "pry"
-require_relative "stackless"
-
 def wrap_time message
   t1 = Time.now
   res = yield
@@ -28,21 +25,23 @@ class TwoSum
   def main
     wrap_time("Load file"){ read_from_file($*[0]) { |line| @numbers<<line.to_i } } if $*.any?
     puts "Total size - #{@numbers.size}"
-    wrap_time("Sorting"){ @numbers.sort! }
-    right = -1
-    @numbers.each do |number|
-      break if number > 5000
-      next if number + @numbers[right] < -10000
-      while number + @numbers[right] > 10000 do
-        right -= 1
-      end
-      i = right
-      while (-10000..10000).include?(number + @numbers[i]) do
-        @sum[number + @numbers[i]] = true
-        i -= 1
+    wrap_time("Sorting..."){ @numbers.sort! }
+    wrap_time("Counting...") do
+      right = -1
+      @numbers.each do |number|
+        break if number > 5000
+        next if number + @numbers[right] < -10000
+        while number + @numbers[right] > 10000
+          right -= 1
+        end
+        i = right
+        while (-10000..10000).include?(number + @numbers[i])
+          @sum[number + @numbers[i]] = true if number != @numbers[i]
+          i -= 1
+        end
       end
     end
-    p @sum.size
+    puts "2-SUM count: #{@sum.size}"
   end
 
 end
