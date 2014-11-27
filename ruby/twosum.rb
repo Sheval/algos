@@ -21,20 +21,30 @@ end
 class TwoSum
 
   def initialize
-    @numbers = {}
-    @sums = {}
+    @numbers = []
+    @sum = {}
   end
 
   def main
-    wrap_time("Load file"){ read_from_file($*[0]) { |line| @numbers[line.to_i] = true } } if $*.any?
-    puts "Hash size - #{@numbers.size}"
-    @numbers.each do |number, _|
-      (-10..10).each do |i|
-        @sum[i] = true if @
+    wrap_time("Load file"){ read_from_file($*[0]) { |line| @numbers<<line.to_i } } if $*.any?
+    puts "Total size - #{@numbers.size}"
+    wrap_time("Sorting"){ @numbers.sort! }
+    right = -1
+    @numbers.each do |number|
+      break if number > 5000
+      next if number + @numbers[right] < -10000
+      while number + @numbers[right] > 10000 do
+        right -= 1
+      end
+      i = right
+      while (-10000..10000).include?(number + @numbers[i]) do
+        @sum[number + @numbers[i]] = true
+        i -= 1
       end
     end
+    p @sum.size
   end
 
 end
 
-wrap_time("TOTAL"){TwoSum.new.main}
+wrap_time("TOTAL"){ TwoSum.new.main }
