@@ -27,6 +27,9 @@ class TwoSum
   def main
     wrap_time("Load file"){ read_from_file($*[0]) { |line| @numbers[line.to_i] = true } } if $*.any?
     puts "Hash size - #{@numbers.size}"
+    arr = []
+    wrap_time("Load file"){ read_from_file($*[0]) { |line| arr << line.to_i } } if $*.any?
+    puts "Ary size - #{arr.size}"
   end
 
 end
