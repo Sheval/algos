@@ -30,7 +30,8 @@ class Median
         @sum += @stream[0..i].sort[i/2]
       end
     end
-    puts "Median count: #{@sum.size}"
+    puts "Median count: #{@sum}"
+    puts "mod 10000 count: #{@sum%10000}"
   end
 
 end
